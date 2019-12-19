@@ -4,21 +4,19 @@ import  java.util.Vector;
 
 public class TestContiguousAccessBenefits 
 {
-	static final boolean DEBUG = true;
-	static final int OBJECT_COUNT = 5;
+	static final boolean DEBUG = false;
+	static final int OBJECT_COUNT = 500000;
 	static long startTime, stopTime, elapsedTime;
 	
 	public static void main(String[] args) 
 	{
 		
-		startTime = System.nanoTime();
+		// Object Oriented Structure
 		testWithObjectOrientedStructure();
-		stopTime = System.nanoTime();
 		printElapsedTime("testWithObjectOrientedStructure");
 		
-		startTime = System.nanoTime();
+		// Data Oriented Structure
 		testWithDataOrientedStructure();
-		stopTime = System.nanoTime();
 		printElapsedTime("testWithDataOrientedStructure");
 
 	}
@@ -27,11 +25,13 @@ public class TestContiguousAccessBenefits
 	{
 		Vector<PlaceholderSingleObject> myObjects = new Vector<PlaceholderSingleObject>(OBJECT_COUNT);
 		
-		for (PlaceholderSingleObject p: myObjects)
-			p = new PlaceholderSingleObject(PlaceholderObject.getRandom3DVector(), PlaceholderObject.getRandom3DVector(), "item");
+		for (int i=0; i<OBJECT_COUNT; i++)
+			myObjects.add(new PlaceholderSingleObject(PlaceholderObject.getRandom3DVector(), PlaceholderObject.getRandom3DVector(), "item"+i));
 		
+		startTime = System.nanoTime();
 		for (PlaceholderSingleObject p : myObjects)
 			p.resourceHeavyMethod();
+		stopTime = System.nanoTime();
 		
 		if (DEBUG)
 			debugSingleObject(myObjects);
@@ -42,7 +42,10 @@ public class TestContiguousAccessBenefits
 	public static void testWithDataOrientedStructure()
 	{
 		PlaceholderArrayObject myObjectArray = new PlaceholderArrayObject(OBJECT_COUNT);
+		
+		startTime = System.nanoTime();
 		myObjectArray.resourceHeavyMethod();
+		stopTime = System.nanoTime();
 		
 		if (DEBUG)
 			debugArrayObject(myObjectArray);
@@ -56,15 +59,18 @@ public class TestContiguousAccessBenefits
 		System.out.printf("Execution time: %d ms\n", elapsedTime / 1000000);
 	}
 	
+	
 	public static void debugSingleObject(Vector<PlaceholderSingleObject> data)
 	{
 		for (PlaceholderSingleObject p : data)
 			System.out.println(p);
+		System.out.println();
 	}
 	
 	public static void debugArrayObject(PlaceholderArrayObject data)
 	{
 		System.out.println(data);
+		System.out.println();
 	}
 	
 

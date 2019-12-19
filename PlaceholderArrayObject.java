@@ -4,7 +4,6 @@ import java.util.Vector;
 
 public class PlaceholderArrayObject 
 {
-	static final Integer TEST_ITERATIONS = 10000;
 	private Vector<PlaceholderObject> data;
 	
 	
@@ -13,10 +12,9 @@ public class PlaceholderArrayObject
 	{
 		data = new Vector<PlaceholderObject>(size);
 		
-		for (PlaceholderObject p : data)
+		for (int i=0; i< size; i++)
 		{
-			p =  new PlaceholderObject(PlaceholderObject.getRandom3DVector(), PlaceholderObject.getRandom3DVector(), "label");
-			
+			data.add(new PlaceholderObject(PlaceholderObject.getRandom3DVector(), PlaceholderObject.getRandom3DVector(), "item"+i));		
 		}
 		
 	}
@@ -26,11 +24,8 @@ public class PlaceholderArrayObject
 	{
 		for (PlaceholderObject p : this.data)
 		{
-		for(int i=0; i<TEST_ITERATIONS; ++i)
-			{
-				this.rotateZ(p.position, Math.PI / 2);
-				this.rotateZ(p.velocity, Math.PI / 3);
-			}
+			this.rotateZ(p.position, 0.2);
+			this.rotateZ(p.velocity, 0.3);
 		}
 	
 	}
@@ -43,24 +38,12 @@ public class PlaceholderArrayObject
 		vector.set(1, (double)(oldX * Math.sin(angle) + vector.get(1) * Math.cos(angle)) );
 	}
 	
-	public static Vector<Double> getRandom3DVector()
-	{
-
-		Vector<Double> v = new Vector<Double>(3);
-		
-		v.add(Math.random() * 100.0);
-		v.add(Math.random() * 100.0);
-		v.add(Math.random() * 100.0);
-		
-		return v;
-	}
-	
 	@Override
 	public String toString()
 	{
 		String returnString = "";
 		for (PlaceholderObject p : this.data)
-			returnString += p.toString();
+			returnString += p.toString() + "\n";
 		
 		return returnString;
 	}

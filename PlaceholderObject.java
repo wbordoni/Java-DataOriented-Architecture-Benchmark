@@ -7,6 +7,7 @@ public class PlaceholderObject
 	protected Vector<Double> position;
 	protected Vector<Double> velocity;
 	private String label; 
+	private static final double ANGLE = 0.2;
 	
 	public PlaceholderObject(Vector<Double> position, Vector<Double> velocity, String label) 
 	{
@@ -18,8 +19,9 @@ public class PlaceholderObject
 	@Override
 	public  String toString()
 	{
-		return String.format("<%s %s>", position, velocity);
+		return String.format("%s <%s %s>", label, position, velocity);
 	}
+	
 	
 	public static Vector<Double> getRandom3DVector()
 	{
