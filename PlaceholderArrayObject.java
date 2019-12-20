@@ -1,6 +1,5 @@
 package fr.croco.contiguous_access_benefits;
 
-import java.util.Vector;
 
 public class PlaceholderArrayObject 
 {
@@ -34,23 +33,18 @@ public class PlaceholderArrayObject
 	// Random bullshit sur les vector
 	public void resourceHeavyMethod1()
 	{
-
 		this.rotateZ(this.position, 0.2);
-
 	}
 	
 	public void resourceHeavyMethod2()
 	{
-
 		this.rotateZ(this.velocity, 0.3);
-
 	}
 	
 	
 	
 	private void rotateZ(double[][] v, double angle) 
 	{ 
-	
 		for (int i=0; i<this.toProcess; i++)
 		{
 			double oldX = v[i][0]; 

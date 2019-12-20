@@ -4,7 +4,7 @@ package fr.croco.contiguous_access_benefits;
 public class TestContiguousAccessBenefits 
 {
 	static final boolean DEBUG = false;
-	static final int OBJECT_COUNT = 500000;
+	static final int OBJECT_COUNT = 512000;
 	static long startTime, stopTime, elapsedTime;
 	
 	public static void main(String[] args) 

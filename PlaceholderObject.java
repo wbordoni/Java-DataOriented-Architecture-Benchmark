@@ -1,6 +1,5 @@
 package fr.croco.contiguous_access_benefits;
 
-import java.util.Vector;
 
 public class PlaceholderObject 
 {
