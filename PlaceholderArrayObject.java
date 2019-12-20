@@ -4,48 +4,78 @@ import java.util.Vector;
 
 public class PlaceholderArrayObject 
 {
-	private Vector<PlaceholderObject> data;
+	private double[][] position;
+	private double[][] velocity;
+	private String[] label;
+	private int toProcess;
 	
 	
 	
 	public PlaceholderArrayObject(int size) 
 	{
-		data = new Vector<PlaceholderObject>(size);
+		this.toProcess = size;
+		this.position = new double[size][3];
+		this.velocity = new double[size][3];
+		this.label = new String[size];
 		
-		for (int i=0; i< size; i++)
+		for (int i=0; i< this.toProcess; i++)
 		{
-			data.add(new PlaceholderObject(PlaceholderObject.getRandom3DVector(), PlaceholderObject.getRandom3DVector(), "item"+i));		
+			this.label[i] = "item"+i;
+			for (int j=0; j<3; j++)
+			{
+				this.randomFill(this.position[i]);
+				this.randomFill(this.velocity[i]);
+			}
 		}
+
 		
 	}
 
 	// Random bullshit sur les vector
-	public void resourceHeavyMethod()
+	public void resourceHeavyMethod1()
 	{
-		for (PlaceholderObject p : this.data)
-		{
-			this.rotateZ(p.position, 0.2);
-			this.rotateZ(p.velocity, 0.3);
-		}
-	
+
+		this.rotateZ(this.position, 0.2);
+
 	}
 	
-	private void rotateZ(Vector<Double> vector, double angle) 
+	public void resourceHeavyMethod2()
+	{
+
+		this.rotateZ(this.velocity, 0.3);
+
+	}
+	
+	
+	
+	private void rotateZ(double[][] v, double angle) 
 	{ 
 	
-		double oldX = vector.get(0); 
-		vector.set(0, (double)(vector.get(0) * Math.cos(angle) - vector.get(1) * Math.sin(angle)));
-		vector.set(1, (double)(oldX * Math.sin(angle) + vector.get(1) * Math.cos(angle)) );
+		for (int i=0; i<this.toProcess; i++)
+		{
+			double oldX = v[i][0]; 
+			v[i][0] = (double)(v[i][0] * Math.cos(angle) - v[i][1] * Math.sin(angle));
+			v[i][1] = (double)(oldX * Math.sin(angle) + v[i][1] * Math.cos(angle));
+		}
 	}
 	
 	@Override
 	public String toString()
 	{
 		String returnString = "";
-		for (PlaceholderObject p : this.data)
-			returnString += p.toString() + "\n";
+		for (int i=0; i<this.toProcess; i++)
+			returnString += String.format("%s <(%05.3f, %05.3f, %05.3f), (%05.3f, %05.3f, %05.3f)>\n", 
+			this.label[i], this.position[i][0], this.position[i][1], this.position[i][2], this.velocity[i][0], this.velocity[i][1], this.velocity[i][2]);
 		
 		return returnString;
+	}
+	
+	private void randomFill(double[] v) 
+	{
+		for (int i=0; i<3; i++)
+		{
+			v[i] = new Double(Math.random() * 50.0);
+		}
 	}
 	
 	

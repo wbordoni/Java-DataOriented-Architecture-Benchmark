@@ -4,35 +4,22 @@ import java.util.Vector;
 
 public class PlaceholderObject 
 {
-	protected Vector<Double> position;
-	protected Vector<Double> velocity;
+	protected Double[] position;
+	protected Double[] velocity;
 	private String label; 
-	private static final double ANGLE = 0.2;
 	
-	public PlaceholderObject(Vector<Double> position, Vector<Double> velocity, String label) 
+	public PlaceholderObject(String label) 
 	{
-		this.position = position;
-		this.velocity = velocity;
-		this.label = label;
+		position = new Double[3];
+		velocity = new Double[3];
+		this.label = label;		
 	}
 	
 	@Override
 	public  String toString()
 	{
-		return String.format("%s <%s %s>", label, position, velocity);
+		return String.format("%s <(%05.3f, %05.3f, %05.3f), (%05.3f, %05.3f, %05.3f)>", label, position[0], position[1], position[2], velocity[0], velocity[1], velocity[2] );
 	}
 	
-	
-	public static Vector<Double> getRandom3DVector()
-	{
-
-		Vector<Double> v = new Vector<Double>(3);
-		
-		v.add(Math.random() * 100.0);
-		v.add(Math.random() * 100.0);
-		v.add(Math.random() * 100.0);
-		
-		return v;
-	}
 	
 }

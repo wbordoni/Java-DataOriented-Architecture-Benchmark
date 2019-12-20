@@ -1,6 +1,5 @@
 package fr.croco.contiguous_access_benefits;
 
-import  java.util.Vector;
 
 public class TestContiguousAccessBenefits 
 {
@@ -23,14 +22,17 @@ public class TestContiguousAccessBenefits
 	
 	public static void testWithObjectOrientedStructure()
 	{
-		Vector<PlaceholderSingleObject> myObjects = new Vector<PlaceholderSingleObject>(OBJECT_COUNT);
+		PlaceholderSingleObject[] myObjects = new PlaceholderSingleObject[OBJECT_COUNT];
 		
 		for (int i=0; i<OBJECT_COUNT; i++)
-			myObjects.add(new PlaceholderSingleObject(PlaceholderObject.getRandom3DVector(), PlaceholderObject.getRandom3DVector(), "item"+i));
+			myObjects[i] = new PlaceholderSingleObject("item"+i);
+		
 		
 		startTime = System.nanoTime();
 		for (PlaceholderSingleObject p : myObjects)
-			p.resourceHeavyMethod();
+			p.resourceHeavyMethod1();
+		for (PlaceholderSingleObject p : myObjects)
+			p.resourceHeavyMethod2();
 		stopTime = System.nanoTime();
 		
 		if (DEBUG)
@@ -44,7 +46,8 @@ public class TestContiguousAccessBenefits
 		PlaceholderArrayObject myObjectArray = new PlaceholderArrayObject(OBJECT_COUNT);
 		
 		startTime = System.nanoTime();
-		myObjectArray.resourceHeavyMethod();
+		myObjectArray.resourceHeavyMethod1();
+		myObjectArray.resourceHeavyMethod2();
 		stopTime = System.nanoTime();
 		
 		if (DEBUG)
@@ -60,7 +63,7 @@ public class TestContiguousAccessBenefits
 	}
 	
 	
-	public static void debugSingleObject(Vector<PlaceholderSingleObject> data)
+	public static void debugSingleObject(PlaceholderSingleObject[] data)
 	{
 		for (PlaceholderSingleObject p : data)
 			System.out.println(p);
